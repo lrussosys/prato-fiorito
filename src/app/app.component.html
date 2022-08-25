@@ -2,7 +2,7 @@
 
 <div class="table">
   <div *ngFor="let s of camp; index as i" class="rows">
-    <div *ngFor="let j of s; index as k" class="square" (click)="getClickedSquare(i, k)">
+    <div *ngFor="let j of s; index as k" class="square" (click)="getClickedSquare(i, k, $event)" >
       <div *ngIf="gameLost && j == 1">💣</div>
     </div>
   </div>

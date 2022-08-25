@@ -51,15 +51,28 @@ export class AppComponent implements OnInit {
     this.generateBombs();
   }
 
-  getClickedSquare(i: any, j: any) {
-    console.log(i, j)
+  getClickedSquare(i: any, j: any, e: any) {
+    console.log(i, j);
 
-    if(this.camp[i][j] == 1) {
-        console.log('bomba')
-        this.gameLost = true;
+    console.log(e.target);
+
+    if (this.camp[i][j] == 1) {
+      console.log('bomba');
+      this.gameLost = true;
+      e.target.style.backgroundColor = 'red';
     } else {
-        this.gameLost = false;
-        console.log('campo')
+      console.log('campo');
     }
-  } 
+
+    /******************/
+    // Search nearby bombs
+
+    if (this.camp[i - 1][j]) {
+      console.log('bomba sopra');
+    } else if(this.camp[i + 1][j]) {
+        console.log('bomba sotto')
+    } else if(this.camp[i][j + 1]) {
+        console.log('bomba a destra')
+    }
+  }
 }
