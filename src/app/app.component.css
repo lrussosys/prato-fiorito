@@ -1,0 +1,21 @@
+.table {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.square {
+  height: 40px;
+  width: 40px;
+  border: 1px solid gray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rows {
+  display: flex;
+  justify-content: content;
+  align-items: center;
+}
