@@ -4,3 +4,7 @@
     box-sizing: border-box;
     font-family: sans-serif;
 }
+
+html body {
+    padding: 1rem 2rem;
+}

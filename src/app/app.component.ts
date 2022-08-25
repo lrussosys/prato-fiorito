@@ -10,6 +10,7 @@ export class AppComponent implements OnInit {
   constructor() {}
 
   camp: any = [];
+  gameLost = false;
 
   ngOnInit() {
     this.newGame();
@@ -43,8 +44,22 @@ export class AppComponent implements OnInit {
   }
 
   newGame() {
+    this.gameLost = false;
+
     this.generateCamp();
 
     this.generateBombs();
   }
+
+  getClickedSquare(i: any, j: any) {
+    console.log(i, j)
+
+    if(this.camp[i][j] == 1) {
+        console.log('bomba')
+        this.gameLost = true;
+    } else {
+        this.gameLost = false;
+        console.log('campo')
+    }
+  } 
 }
