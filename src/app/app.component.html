@@ -7,7 +7,7 @@
       class="square"
       (click)="getClickedSquare(i, k, $event)"
     >
-      <div *ngIf="gameLost && j == 1">💣</div>
+      <div *ngIf="gameLost && j == bombValue">💣</div>
       <div>{{ j }}</div>
     </div>
   </div>

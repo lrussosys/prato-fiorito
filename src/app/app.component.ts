@@ -12,6 +12,7 @@ export class AppComponent implements OnInit {
   N = 8;
   camp: any = [];
   gameLost = false;
+  bombValue = -1;
 
   ngOnInit() {
     this.newGame();
@@ -24,7 +25,7 @@ export class AppComponent implements OnInit {
     console.log(randomIndex);
 
     for (let i = 0; i < 8; i++) {
-      this.camp[randomIndex2].splice(randomIndex, 1, 1);
+      this.camp[randomIndex2].splice(randomIndex, 1, this.bombValue);
       randomIndex = Math.floor(Math.random() * (this.N - 1));
       randomIndex2 = Math.floor(Math.random() * (this.N - 1));
       console.log(randomIndex);
@@ -57,7 +58,7 @@ export class AppComponent implements OnInit {
 
     console.log(e.target);
 
-    if (this.camp[i][j] == 1) {
+    if (this.camp[i][j] == this.bombValue) {
       console.log('bomba');
       this.gameLost = true;
       e.target.style.backgroundColor = 'red';
@@ -95,13 +96,15 @@ export class AppComponent implements OnInit {
         if (
           this.camp[rowIndex] &&
           this.camp[rowIndex][colIndex] &&
-          this.camp[rowIndex][colIndex] == 1
+          this.camp[rowIndex][colIndex] == this.bombValue
         ) {
           counter++;
         }
       }
     }
-    // console.log(counter);
-    this.camp[i][j] = counter;
+    if (this.camp[i][j] != this.bombValue) {
+      this.camp[i][j] = counter;
+    }
+    console.log(counter);
   }
 }
