@@ -26,7 +26,10 @@ export class AppComponent implements OnInit {
     console.log(randomIndex);
 
     for (let i = 0; i < 8; i++) {
-      this.camp[randomIndex2].splice(randomIndex, 1, this.bombValue);
+      this.camp[randomIndex2].splice(randomIndex, 1, {
+        ...this.camp[randomIndex][randomIndex2],
+        bomb: this.bombValue,
+      });
       randomIndex = Math.floor(Math.random() * (this.N - 1));
       randomIndex2 = Math.floor(Math.random() * (this.N - 1));
       console.log(randomIndex);
@@ -40,7 +43,10 @@ export class AppComponent implements OnInit {
       this.camp[i] = [];
 
       for (let k = 0; k < 8; k++) {
-        this.camp[i][k] = 0;
+        this.camp[i][k] = {
+          count: 0,
+          bomb: 0,
+        };
       }
     }
     console.log(this.camp);
@@ -59,15 +65,13 @@ export class AppComponent implements OnInit {
 
     console.log(e.target);
 
-    if (this.camp[i][j] == this.bombValue) {
+    if (this.camp[i][j].bomb == this.bombValue) {
       console.log('bomba');
       this.gameLost = true;
       e.target.style.backgroundColor = 'red';
-      
     } else {
       console.log('campo');
-    //   e.target.style.border = '1px solid gray';
-
+      //   e.target.style.border = '1px solid gray';
     }
 
     /******************/
@@ -90,6 +94,10 @@ export class AppComponent implements OnInit {
 
     // console.log(this.camp)
 
+
+    // START
+ 
+
     this.counter = 0;
 
     for (let k = 0; k < 3; k++) {
@@ -100,15 +108,18 @@ export class AppComponent implements OnInit {
         if (
           this.camp[rowIndex] &&
           this.camp[rowIndex][colIndex] &&
-          this.camp[rowIndex][colIndex] == this.bombValue
+          this.camp[rowIndex][colIndex] &&
+          this.camp[rowIndex][colIndex].bomb == this.bombValue
+
         ) {
           this.counter++;
         }
       }
     }
-    if (this.camp[i][j] != this.bombValue) {
-      this.camp[i][j] = this.counter;
+    if (this.camp[i][j].bomb != this.bombValue) {
+      this.camp[i][j].count = this.counter;
     }
     console.log(this.counter);
   }
+  
 }
