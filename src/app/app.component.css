@@ -57,3 +57,7 @@ button {
 .no-pointer {
   pointer-events: none;
 }
+
+.square.selected {
+    border: 2px solid gray;
+}

@@ -46,6 +46,7 @@ export class AppComponent implements OnInit {
         this.camp[i][k] = {
           count: 0,
           bomb: 0,
+          selected: false,
         };
       }
     }
@@ -94,9 +95,7 @@ export class AppComponent implements OnInit {
 
     // console.log(this.camp)
 
-
     // START
- 
 
     this.counter = 0;
 
@@ -110,7 +109,6 @@ export class AppComponent implements OnInit {
           this.camp[rowIndex][colIndex] &&
           this.camp[rowIndex][colIndex] &&
           this.camp[rowIndex][colIndex].bomb == this.bombValue
-
         ) {
           this.counter++;
         }
@@ -118,8 +116,8 @@ export class AppComponent implements OnInit {
     }
     if (this.camp[i][j].bomb != this.bombValue) {
       this.camp[i][j].count = this.counter;
+      this.camp[i][j].selected = true;
     }
     console.log(this.counter);
   }
-  
 }
