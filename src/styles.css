@@ -5,6 +5,8 @@
     font-family: sans-serif;
 }
 
-html body {
+body {
     padding: 1rem 2rem;
+    background-color: lightgray;
+    
 }

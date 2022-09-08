@@ -12,6 +12,8 @@ export class AppComponent implements OnInit {
   N = 8;
   camp: any = [];
   gameLost = false;
+  bombValue = -1;
+  counter = 0;
 
   ngOnInit() {
     this.newGame();
@@ -24,7 +26,10 @@ export class AppComponent implements OnInit {
     console.log(randomIndex);
 
     for (let i = 0; i < 8; i++) {
-      this.camp[randomIndex2].splice(randomIndex, 1, 1);
+      this.camp[randomIndex2].splice(randomIndex, 1, {
+        ...this.camp[randomIndex][randomIndex2],
+        bomb: this.bombValue,
+      });
       randomIndex = Math.floor(Math.random() * (this.N - 1));
       randomIndex2 = Math.floor(Math.random() * (this.N - 1));
       console.log(randomIndex);
@@ -38,7 +43,11 @@ export class AppComponent implements OnInit {
       this.camp[i] = [];
 
       for (let k = 0; k < 8; k++) {
-        this.camp[i][k] = 0;
+        this.camp[i][k] = {
+          count: 0,
+          bomb: 0,
+          selected: false,
+        };
       }
     }
     console.log(this.camp);
@@ -57,12 +66,13 @@ export class AppComponent implements OnInit {
 
     console.log(e.target);
 
-    if (this.camp[i][j] == 1) {
+    if (this.camp[i][j].bomb == this.bombValue) {
       console.log('bomba');
       this.gameLost = true;
       e.target.style.backgroundColor = 'red';
     } else {
       console.log('campo');
+      //   e.target.style.border = '1px solid gray';
     }
 
     /******************/
@@ -85,7 +95,9 @@ export class AppComponent implements OnInit {
 
     // console.log(this.camp)
 
-    let counter = 0;
+    // START
+
+    this.counter = 0;
 
     for (let k = 0; k < 3; k++) {
       for (let l = 0; l < 3; l++) {
@@ -95,13 +107,17 @@ export class AppComponent implements OnInit {
         if (
           this.camp[rowIndex] &&
           this.camp[rowIndex][colIndex] &&
-          this.camp[rowIndex][colIndex] == 1
+          this.camp[rowIndex][colIndex] &&
+          this.camp[rowIndex][colIndex].bomb == this.bombValue
         ) {
-          counter++;
+          this.counter++;
         }
       }
     }
-    // console.log(counter);
-    this.camp[i][j] = counter;
+    if (this.camp[i][j].bomb != this.bombValue) {
+      this.camp[i][j].count = this.counter;
+      this.camp[i][j].selected = true;
+    }
+    console.log(this.counter);
   }
 }
