@@ -1,24 +1,29 @@
 <div class="container">
   <h1>Minesweeper</h1>
 
+  <div class="smiley-container">
+    <div class="square counter">{{ bombQuantity }}</div>
+    <button *ngIf="!gameLost" class="square" (click)="newGame()">😊</button>
+    <button *ngIf="gameLost" class="square" (click)="newGame()">😢</button>
+  </div>
+
   <div class="table" [ngClass]="gameLost || gameWon ? 'no-pointer' : ''">
     <div *ngFor="let s of camp; index as i" class="rows">
       <div
         *ngFor="let j of s; index as k"
         class="square"
         [ngClass]="j.selected == true ? 'selected' : ''"
+        [ngClass]="gameLost && j.bomb == bombValue ? 'highlight' : ''"
         (click)="getClickedSquare(i, k, $event)"
       >
-        <div *ngIf="gameLost && j.bomb == bombValue" >💣</div>
-        <div *ngIf="!gameLost && j.count > 0" >
+        <div *ngIf="gameLost && j.bomb == bombValue">💣</div>
+        <div *ngIf="!gameLost && j.count > 0">
           {{ j.count }}
         </div>
       </div>
     </div>
   </div>
-  <button (click)="newGame()">New Game</button>
 
   <div *ngIf="gameLost && !gameWon" class="lost">HAI PERSO</div>
   <div *ngIf="gameWon && !gameLost" class="won">HAI VINTO</div>
-
 </div>
