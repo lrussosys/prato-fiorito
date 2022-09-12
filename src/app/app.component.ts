@@ -14,6 +14,8 @@ export class AppComponent implements OnInit {
   gameLost = false;
   bombValue = -1;
   counter = 0;
+  counterSelected: any;
+  pippo = 0;
 
   ngOnInit() {
     this.newGame();
@@ -61,39 +63,15 @@ export class AppComponent implements OnInit {
     this.generateBombs();
   }
 
-  getClickedSquare(i: any, j: any, e: any) {
-    console.log(i, j);
-
-    console.log(e.target);
-
+  getClickedSquare(i: any, j: any, e: any = undefined) {
     if (this.camp[i][j].bomb == this.bombValue) {
       console.log('bomba');
       this.gameLost = true;
-      e.target.style.backgroundColor = 'red';
+      // e.target.style.backgroundColor = 'red';
     } else {
       console.log('campo');
       //   e.target.style.border = '1px solid gray';
     }
-
-    /******************/
-    // Search nearby bombs
-
-    // if (this.camp[i - 1][j]) {
-    //   console.log('bomba sopra');
-    // } else if(this.camp[i + 1][j]) {
-    //     console.log('bomba sotto')
-    // } else if(this.camp[i][j + 1]) {
-    //     console.log('bomba a destra')
-    // }
-
-    // let counter = 0
-    // this.camp[1].forEach((x:any)=>{
-    //   if(x==1){
-    //     counter+=1;
-    //   }
-    //   console.log(counter)})
-
-    // console.log(this.camp)
 
     // START
 
@@ -118,6 +96,58 @@ export class AppComponent implements OnInit {
       this.camp[i][j].count = this.counter;
       this.camp[i][j].selected = true;
     }
-    console.log(this.counter);
+
+    //   for (let k = 0; k < 3; k++) {
+    //     for (let l = 0; l < 3; l++) {
+    //       if (
+    //         this.camp[i-k] &&
+    //         this.camp[i-k][j-l] &&
+    //         this.camp[i-k][j-l] &&
+    //         this.camp[i-k][j-l].bomb > 0
+    //       ) {
+    //         this.getClickedSquare(j-l,i-k, undefined)
+    //     }
+    //   }
+    // }
+    // if (e) {
+    // if (
+    //   this.camp[i - 1] !== undefined &&
+    //   this.camp[i - 1][j - 1] !== undefined &&
+    //   this.camp[i - 1][j - 1].bomb !== this.bombValue
+    // ) {
+    //   this.camp[i - 1][j - 1].selected = true;
+    // }
+
+    for (let c = i - 1; c < i - 1 + 3; c++) {
+      for (let p = j - 1; p < j - 1 + 3; p++) {
+        if (
+          this.camp[c] !== undefined &&
+          this.camp[c][p] !== undefined &&
+          this.camp[c][p].bomb !== this.bombValue
+        ) {
+          this.camp[c][p].selected = true;
+          this.counterSelected++;
+        }
+      }
+    }
+
+    // this.camp.forEach((e:any) => {
+    //   e.forEach((el:any) => {
+    //     // if(this.counterSelected == ((64)-(this.N-1))){
+    //     //   console.log('ciao')
+    //     // }
+
+    //   });
+    // });
+    // }
+
+    for (let z = 0; z < 8; z++) {
+      for (let y = 0; y < 8; y++) {
+        if (z == 7 && y == 7) {
+          this.pippo++;
+          console.log(this.pippo);
+        }
+      }
+    }
   }
 }
