@@ -1,7 +1,7 @@
 <div class="container">
   <h1>Minesweeper</h1>
 
-  <div class="table" [ngClass]="gameLost ? 'no-pointer' : ''">
+  <div class="table" [ngClass]="gameLost || gameWon ? 'no-pointer' : ''">
     <div *ngFor="let s of camp; index as i" class="rows">
       <div
         *ngFor="let j of s; index as k"
@@ -9,8 +9,8 @@
         [ngClass]="j.selected == true ? 'selected' : ''"
         (click)="getClickedSquare(i, k, $event)"
       >
-        <div *ngIf="gameLost && j.bomb == bombValue">💣</div>
-        <div *ngIf="!gameLost && j.count > 0">
+        <div *ngIf="gameLost && j.bomb == bombValue" >💣</div>
+        <div *ngIf="!gameLost && j.count > 0" >
           {{ j.count }}
         </div>
       </div>
@@ -18,5 +18,7 @@
   </div>
   <button (click)="newGame()">New Game</button>
 
-  <div *ngIf="gameLost" class="lost">HAI PERSO</div>
+  <div *ngIf="gameLost && !gameWon" class="lost">HAI PERSO</div>
+  <div *ngIf="gameWon && !gameLost" class="won">HAI VINTO</div>
+
 </div>

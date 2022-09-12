@@ -1,6 +1,6 @@
 .container {
-    /* width: 50%; */
-    margin: 0 auto;
+  /* width: 50%; */
+  margin: 0 auto;
 }
 
 .table {
@@ -47,11 +47,19 @@ button {
 }
 
 .lost {
+  color: red;
+}
+
+.won {
+  color: green;
+}
+
+.lost,
+.won {
   text-align: center;
   padding: 2rem 0;
   font-size: 4rem;
   font-weight: 900;
-  color: red;
 }
 
 .no-pointer {
@@ -59,5 +67,9 @@ button {
 }
 
 .square.selected {
-    border: 2px solid gray;
+  border: 2px solid gray;
+}
+
+.bomba {
+  background-color: purple;
 }
