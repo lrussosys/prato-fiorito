@@ -12,20 +12,21 @@ export class AppComponent implements OnInit {
   N = 8;
   camp: any = [];
   gameLost = false;
+  gameWon = false;
   bombValue = -1;
+  bombQuantity!: any;
   counter = 0;
-  counterSelected: any;
-  pippo = 0;
+  counterSelected: any = 0;
+  bombCounter = 0;
 
   ngOnInit() {
     this.newGame();
   }
+
   // mette le bombe in maniera random
   generateBombs() {
     let randomIndex = Math.floor(Math.random() * (this.N - 1));
     let randomIndex2 = Math.floor(Math.random() * (this.N - 1));
-
-    console.log(randomIndex);
 
     for (let i = 0; i < 8; i++) {
       this.camp[randomIndex2].splice(randomIndex, 1, {
@@ -34,17 +35,14 @@ export class AppComponent implements OnInit {
       });
       randomIndex = Math.floor(Math.random() * (this.N - 1));
       randomIndex2 = Math.floor(Math.random() * (this.N - 1));
-      console.log(randomIndex);
     }
-
-    console.log(this.camp);
   }
 
   generateCamp() {
     for (let i = 0; i < this.N; i++) {
       this.camp[i] = [];
 
-      for (let k = 0; k < 8; k++) {
+      for (let k = 0; k < this.N; k++) {
         this.camp[i][k] = {
           count: 0,
           bomb: 0,
@@ -52,28 +50,42 @@ export class AppComponent implements OnInit {
         };
       }
     }
-    console.log(this.camp);
   }
 
   newGame() {
+    this.bombCounter = 0;
+    this.counterSelected = 0;
+
     this.gameLost = false;
+    this.gameWon = false;
+
 
     this.generateCamp();
 
     this.generateBombs();
+
+    // Calcolo numero bombe
+    this.camp.forEach((e: any) => {
+      e.forEach((el: any) => {
+        if (el.bomb == -1) {
+          this.bombCounter++;
+          this.bombQuantity = this.bombCounter;
+        }
+
+        if (el.selected) {
+          let selected = 0;
+          selected++;
+        }
+      });
+    });
   }
 
   getClickedSquare(i: any, j: any, e: any = undefined) {
     if (this.camp[i][j].bomb == this.bombValue) {
-      console.log('bomba');
       this.gameLost = true;
-      // e.target.style.backgroundColor = 'red';
-    } else {
-      console.log('campo');
-      //   e.target.style.border = '1px solid gray';
     }
 
-    // START
+    // START gioco
 
     this.counter = 0;
 
@@ -97,27 +109,7 @@ export class AppComponent implements OnInit {
       this.camp[i][j].selected = true;
     }
 
-    //   for (let k = 0; k < 3; k++) {
-    //     for (let l = 0; l < 3; l++) {
-    //       if (
-    //         this.camp[i-k] &&
-    //         this.camp[i-k][j-l] &&
-    //         this.camp[i-k][j-l] &&
-    //         this.camp[i-k][j-l].bomb > 0
-    //       ) {
-    //         this.getClickedSquare(j-l,i-k, undefined)
-    //     }
-    //   }
-    // }
-    // if (e) {
-    // if (
-    //   this.camp[i - 1] !== undefined &&
-    //   this.camp[i - 1][j - 1] !== undefined &&
-    //   this.camp[i - 1][j - 1].bomb !== this.bombValue
-    // ) {
-    //   this.camp[i - 1][j - 1].selected = true;
-    // }
-
+    // Conta caselle selezionate
     for (let c = i - 1; c < i - 1 + 3; c++) {
       for (let p = j - 1; p < j - 1 + 3; p++) {
         if (
@@ -131,23 +123,18 @@ export class AppComponent implements OnInit {
       }
     }
 
-    // this.camp.forEach((e:any) => {
-    //   e.forEach((el:any) => {
-    //     // if(this.counterSelected == ((64)-(this.N-1))){
-    //     //   console.log('ciao')
-    //     // }
-
-    //   });
-    // });
-    // }
-
-    for (let z = 0; z < 8; z++) {
-      for (let y = 0; y < 8; y++) {
-        if (z == 7 && y == 7) {
-          this.pippo++;
-          console.log(this.pippo);
+    // Controllo vittoria
+    let selected = 0;
+    this.camp.forEach((e: any) => {
+      e.forEach((el: any) => {
+        if (el.selected == true) {
+          selected++;
         }
-      }
-    }
+
+        if (this.N * this.N - selected == this.bombQuantity) {
+          this.gameWon = true;
+        }
+      });
+    });
   }
 }

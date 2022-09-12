@@ -1,6 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+
 .container {
-    /* width: 50%; */
-    margin: 0 auto;
+  /* width: 50%; */
+  margin: 0 auto;
 }
 
 .table {
@@ -39,19 +41,27 @@ h1 {
   text-align: center;
 }
 
-button {
+/* button {
   display: block;
   margin: 0 auto;
   width: 92%;
   padding: 1rem;
-}
+} */
 
 .lost {
+  color: red;
+}
+
+.won {
+  color: green;
+}
+
+.lost,
+.won {
   text-align: center;
   padding: 2rem 0;
   font-size: 4rem;
   font-weight: 900;
-  color: red;
 }
 
 .no-pointer {
@@ -59,5 +69,38 @@ button {
 }
 
 .square.selected {
-    border: 2px solid gray;
+  border: 2px solid gray;
+}
+
+.bomba {
+  background-color: purple;
+}
+
+.smiley-container {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 3rem;
+
+}
+
+.smiley-container > .square {
+    height: 50px;
+    width: 50px;
+    font-size: 33px;
+    font-family: 'Orbitron', sans-serif;
+    color: red;
+    background-color: lightgray;
+
+}
+
+.smiley-container > .counter {
+    background-color: black
+}
+
+.smiley-container > .square:active {
+    border: 1px solid gray;
+}
+
+.highlight {
+    background-color: red;
 }
